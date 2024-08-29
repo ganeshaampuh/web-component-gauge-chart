@@ -33,11 +33,11 @@ export default {
     drawChart() {
       var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, i, margin, needle, numSections, padRad, percToDeg, percToRad, percent, radius, ref, sectionIndx, sectionPerc, startPadRad, svg, totalPercent, width;
 
-      percent = this.value / 100;
+      percent = this.value / this.max; // Calculate percent based on this.value and this.max
 
       barWidth = 20;
 
-      numSections = Math.ceil(this.max / this.distance);
+      numSections = this.max / this.distance;
 
       sectionPerc = 1 / numSections / 2;
 
@@ -133,7 +133,7 @@ export default {
 
       needle.drawOn(chart, 0);
 
-      needle.animateOn(chart, percent);
+      needle.animateOn(chart, percent * 0.75); // Adjust for the 270-degree arc (0.75 of a full circle)
     }
   },
   mounted() {

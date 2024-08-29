@@ -85,7 +85,16 @@ export default {
         startPadRad = sectionIndx === 0 ? 0 : padRad / 2;
         endPadRad = sectionIndx === numSections ? 0 : padRad / 2;
         arc = d3.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
-        chart.append('path').attr('class', "arc chart-color" + sectionIndx).attr('d', arc);
+        
+        // Apply color based on from and to attributes
+        const sectionValue = sectionIndx * this.distance;
+        const setting = this.settings.find(s => sectionValue >= s.from && sectionValue <= s.to);
+        const color = setting ? setting.color : '#ccc'; // Default color if no matching setting
+
+        chart.append('path')
+          .attr('class', "arc chart-color" + sectionIndx)
+          .attr('d', arc)
+          .attr('fill', color);
       }
 
       Needle = (function () {
@@ -133,7 +142,8 @@ export default {
 
       needle.drawOn(chart, 0);
 
-      needle.animateOn(chart, percent * 0.75); // Adjust for the 270-degree arc (0.75 of a full circle)
+      // Adjust the needle position to match the actual value
+      needle.animateOn(chart, percent);
     }
   },
   mounted() {

@@ -1,5 +1,5 @@
 {
-  "name": "donut-chart-pnp",
+  "name": "chart-pnp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,13 +9,15 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-custom-element": "^3.3.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
     "@vue/cli-plugin-eslint": "~4.5.15",
     "@vue/cli-service": "~4.5.15",
     "babel-eslint": "^10.1.0",
+    "d3": "^7.9.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.26.5",

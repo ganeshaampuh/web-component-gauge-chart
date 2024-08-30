@@ -156,6 +156,25 @@ export default {
         .attr('text-anchor', 'middle')
         .attr('alignment-baseline', 'middle')
         .text(`${this.value} ${this.value_label}`);
+
+      // Add min label
+      // Add min label
+      chart.append('text')
+        .attr('class', 'gauge-label')
+        .attr('x', -radius - 10)  // Position to the left of the circle
+        .attr('y', 0)  // Align vertically with the center of the circle
+        .attr('text-anchor', 'start')  // Align text to the right
+        .attr('alignment-baseline', 'middle')  // Vertically center the text
+        .text(this.min);
+
+      // Add max label
+      chart.append('text')
+        .attr('class', 'gauge-label')
+        .attr('x', radius + 10)  // Position to the right of the circle
+        .attr('y', 0)  // Align vertically with the center of the circle
+        .attr('text-anchor', 'start')  // Align text to the left
+        .attr('alignment-baseline', 'middle')  // Vertically center the text
+        .text(this.max);
     }
   },
   mounted() {

@@ -99,6 +99,27 @@ export default {
           .attr('class', "arc chart-color" + sectionIndx)
           .attr('d', arc)
           .attr('fill', color);
+
+        // Add label for each section
+        const labelAngle = (arcStartRad + arcEndRad) / 2;
+        const labelRadius = radius - chartInset + 20;
+        const labelX = labelRadius * Math.cos(labelAngle - Math.PI / 2);
+        const labelY = labelRadius * Math.sin(labelAngle - Math.PI / 2);
+        
+        if (sectionValue !== this.min && sectionValue !== this.max) {
+          const rotationAngle = -10;
+          const radians = rotationAngle * Math.PI / 180;
+          const adjustedLabelX = labelX * Math.cos(radians) + labelY * Math.sin(radians);
+          const adjustedLabelY = -labelX * Math.sin(radians) + labelY * Math.cos(radians);
+          
+          chart.append('text')
+            .attr('class', 'gauge-label')
+            .attr('x', adjustedLabelX)
+            .attr('y', adjustedLabelY)
+            .attr('text-anchor', 'middle')
+            .attr('alignment-baseline', 'middle')
+            .text(sectionValue);
+        }
       }
 
       Needle = (function () {
@@ -157,21 +178,20 @@ export default {
         .attr('alignment-baseline', 'middle')
         .text(`${this.value} ${this.value_label}`);
 
-      // Add min label
-      // Add min label
+      // // Add min label
       chart.append('text')
         .attr('class', 'gauge-label')
         .attr('x', -radius - 10)  // Position to the left of the circle
-        .attr('y', 0)  // Align vertically with the center of the circle
+        .attr('y', -5)  // Align vertically with the center of the circle
         .attr('text-anchor', 'start')  // Align text to the right
         .attr('alignment-baseline', 'middle')  // Vertically center the text
         .text(this.min);
 
-      // Add max label
+      // // Add max label
       chart.append('text')
         .attr('class', 'gauge-label')
         .attr('x', radius + 10)  // Position to the right of the circle
-        .attr('y', 0)  // Align vertically with the center of the circle
+        .attr('y', -5)  // Align vertically with the center of the circle
         .attr('text-anchor', 'start')  // Align text to the left
         .attr('alignment-baseline', 'middle')  // Vertically center the text
         .text(this.max);
@@ -186,7 +206,7 @@ export default {
 <style lang="scss">
 .chart-gauge {
   width: 300px;
-  margin: 10px auto;
+  margin: 20px auto;
 }
 
 .needle,
@@ -200,7 +220,7 @@ export default {
 }
 
 .gauge-value {
-  font-size: 22px;
+  font-size: 14px;
   font-weight: bold;
   fill: #333;
 }

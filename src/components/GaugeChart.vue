@@ -8,12 +8,16 @@ import * as d3 from "d3";
 export default {
   name: 'Gauge',
   props: {
+    settings: {
+      type: Array,
+      required: true
+    },
     value: {
       type: Number,
       required: true
     },
-    settings: {
-      type: Array,
+    value_label: {
+      type: String,
       required: true
     },
     min: {
@@ -142,8 +146,16 @@ export default {
 
       needle.drawOn(chart, 0);
 
-      // Adjust the needle position to match the actual value
       needle.animateOn(chart, percent);
+
+      // Add text of value at the bottom of the needle
+      chart.append('text')
+        .attr('class', 'gauge-value')
+        .attr('x', 0)
+        .attr('y', radius / 2)  // Position the text below the needle
+        .attr('text-anchor', 'middle')
+        .attr('alignment-baseline', 'middle')
+        .text(this.value);
     }
   },
   mounted() {
@@ -165,6 +177,12 @@ export default {
 
 .gauge-label {
   font-size: 12px;
+  fill: #333;
+}
+
+.gauge-value {
+  font-size: 22px;
+  font-weight: bold;
   fill: #333;
 }
 </style>

@@ -1,16 +1,23 @@
 <template>
   <div id="app">
-    <Gauge :value="value" :min="min" :max="max" :distance="distance" :settings="settings" />
+    <GaugeChart 
+      :value="value" 
+      :value_label="value_label"
+      :min="min" 
+      :max="max" 
+      :distance="distance" 
+      :settings="settings"
+    />
   </div>
 </template>
 
 <script>
-import Gauge from './components/Gauge.vue'
+import GaugeChart from './components/GaugeChart.vue'
 
 export default {
   name: 'App',
   components: {
-    Gauge
+    GaugeChart
   },
   data() {
     return {  

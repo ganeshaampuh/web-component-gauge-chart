@@ -1,6 +1,6 @@
 {
-  "name": "chart-pnp",
-  "version": "0.1.0",
+  "name": "chart-plug-n-play",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -13,7 +13,7 @@
     "vue-custom-element": "^3.3.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.15",
+    "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~4.5.15",
     "@vue/cli-service": "~4.5.15",
     "babel-eslint": "^10.1.0",

@@ -8,6 +8,14 @@
       :distance="distance" 
       :settings="settings"
     />
+
+    <!-- Print all the settings props -->
+    <pre>Settings: {{ settings }}</pre>
+    <pre>Value: {{ value }}</pre>
+    <pre>Value Label: {{ value_label }}</pre>
+    <pre>Min: {{ min }}</pre>
+    <pre>Max: {{ max }}</pre>
+    <pre>Distance: {{ distance }}</pre> 
   </div>
 </template>
 
@@ -22,6 +30,7 @@ export default {
   data() {
     return {  
       value: 40,
+      value_label: 'Hours',
       min: 0,
       max: 80,
       distance: 10,

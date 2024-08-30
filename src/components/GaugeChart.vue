@@ -148,14 +148,14 @@ export default {
 
       needle.animateOn(chart, percent);
 
-      // Add text of value at the bottom of the needle
+      // Add text of value and value label at the bottom of the needle
       chart.append('text')
         .attr('class', 'gauge-value')
         .attr('x', 0)
         .attr('y', radius / 2)  // Position the text below the needle
         .attr('text-anchor', 'middle')
         .attr('alignment-baseline', 'middle')
-        .text(this.value);
+        .text(`${this.value} ${this.value_label}`);
     }
   },
   mounted() {

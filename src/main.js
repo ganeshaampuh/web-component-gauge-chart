@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import vueCustomElement from 'vue-custom-element'
 import GaugeChart from './components/GaugeChart.vue'
+import vueCustomElement from 'vue-custom-element'
 
 Vue.use(vueCustomElement)
 Vue.customElement('gauge-chart', GaugeChart)

@@ -37,7 +37,7 @@ export default {
     drawChart() {
       var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, i, margin, needle, numSections, padRad, percToDeg, percToRad, percent, radius, ref, sectionIndx, sectionPerc, startPadRad, svg, totalPercent, width;
 
-      percent = this.value / this.max; // Calculate percent based on this.value and this.max
+      percent = this.value / this.max;
 
       barWidth = 20;
 
@@ -80,7 +80,7 @@ export default {
 
       svg = el.append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
 
-      chart = svg.append('g').attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2) + ")");
+      chart = svg.append('g').attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2 + 10) + ")");
 
       for (sectionIndx = i = 1, ref = numSections; 1 <= ref ? i <= ref : i >= ref; sectionIndx = 1 <= ref ? ++i : --i) {
         arcStartRad = percToRad(totalPercent);
@@ -90,17 +90,15 @@ export default {
         endPadRad = sectionIndx === numSections ? 0 : padRad / 2;
         arc = d3.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
         
-        // Apply color based on from and to attributes
         const sectionValue = sectionIndx * this.distance;
         const setting = this.settings.find(s => sectionValue >= s.from && sectionValue <= s.to);
-        const color = setting ? setting.color : '#ccc'; // Default color if no matching setting
+        const color = setting ? setting.color : '#ccc';
 
         chart.append('path')
           .attr('class', "arc chart-color" + sectionIndx)
           .attr('d', arc)
           .attr('fill', color);
 
-        // Add label for each section
         const labelAngle = (arcStartRad + arcEndRad) / 2;
         const labelRadius = radius - chartInset + 20;
         const labelX = labelRadius * Math.cos(labelAngle - Math.PI / 2);
@@ -169,31 +167,28 @@ export default {
 
       needle.animateOn(chart, percent);
 
-      // Add text of value and value label at the bottom of the needle
       chart.append('text')
         .attr('class', 'gauge-value')
         .attr('x', 0)
-        .attr('y', radius / 2)  // Position the text below the needle
+        .attr('y', radius / 2)
         .attr('text-anchor', 'middle')
         .attr('alignment-baseline', 'middle')
         .text(`${this.value} ${this.value_label}`);
 
-      // // Add min label
       chart.append('text')
         .attr('class', 'gauge-label')
-        .attr('x', -radius - 10)  // Position to the left of the circle
-        .attr('y', -5)  // Align vertically with the center of the circle
-        .attr('text-anchor', 'start')  // Align text to the right
-        .attr('alignment-baseline', 'middle')  // Vertically center the text
+        .attr('x', -radius - 10)
+        .attr('y', -5)
+        .attr('text-anchor', 'start')
+        .attr('alignment-baseline', 'middle')
         .text(this.min);
 
-      // // Add max label
       chart.append('text')
         .attr('class', 'gauge-label')
-        .attr('x', radius + 10)  // Position to the right of the circle
-        .attr('y', -5)  // Align vertically with the center of the circle
-        .attr('text-anchor', 'start')  // Align text to the left
-        .attr('alignment-baseline', 'middle')  // Vertically center the text
+        .attr('x', radius + 10)
+        .attr('y', -5)
+        .attr('text-anchor', 'start')
+        .attr('alignment-baseline', 'middle')
         .text(this.max);
     }
   },
@@ -220,7 +215,7 @@ export default {
 }
 
 .gauge-value {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   fill: #333;
 }

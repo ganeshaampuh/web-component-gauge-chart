@@ -1,0 +1,15 @@
+.needle,
+.needle-center {
+  fill: #464A4F;
+}
+
+.gauge-label {
+  font-size: 12px;
+  fill: #333;
+}
+
+.gauge-value {
+  font-size: 16px;
+  font-weight: bold;
+  fill: #333;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>D3 Collection Chart</title>
+
+    <script type="module" src="/build/chart-gauge-stencil.esm.js"></script>
+    <script nomodule src="/build/chart-gauge-stencil.js"></script>
+  </head>
+  <body>
+    <chart-gauge
+      width="300"
+      value="35"
+      label="Hours"
+      min="0"
+      max="80"
+      distance="10">
+    </chart-gauge>
+  </body>
+  
+  <script>
+    document.querySelector('chart-gauge').settings = [
+        {
+          "name": "green",
+          "from": 0,
+          "to": 40,
+          "color": "#54bc3a"
+        },
+        {
+          "name": "yellow",
+          "from": 40,
+          "to": 50,
+          "color": "#dcdf0f"
+        },
+        {
+          "name": "red",
+          "from": 50,
+          "to": 80,
+          "color": "#de5354"
+        }
+      ];
+ </script>
+</html>

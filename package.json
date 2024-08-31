@@ -1,27 +1,49 @@
 {
-  "name": "chart-plug-n-play",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+  "name": "web-component-gauge-chart",
+  "version": "0.0.2",
+  "author": "Ganesha Ampuh <ganeshaampuh@gmail.com>",
+  "description": "",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/chart-gauge-stencil/chart-gauge-stencil.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/chart-gauge-stencil/chart-gauge-stencil.esm.js",
+      "require": "./dist/chart-gauge-stencil/chart-gauge-stencil.cjs.js"
+    },
+    "./chart-gauge": {
+      "import": "./dist/chart-gauge/chart-gauge.js",
+      "types": "./dist/chart-gauge/chart-gauge.d.ts"
+    },
+    "./loader": {
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs",
+      "types": "./loader/index.d.ts"
+    }
   },
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "vue-custom-element": "^3.3.0"
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "publish": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~4.5.15",
-    "@vue/cli-service": "~4.5.15",
-    "babel-eslint": "^10.1.0",
-    "d3": "^7.9.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "@stencil/core": "^4.7.0",
+    "@types/jest": "^29.5.6",
+    "@types/node": "^16.18.11",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
+    "puppeteer": "^21.9.0",
+    "workbox-build": "^4.3.1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "d3": "^7.9.0"
   }
 }

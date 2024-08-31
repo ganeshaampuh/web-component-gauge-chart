@@ -8,7 +8,7 @@ A customizable gauge chart web component built with Stencil.js and D3.js.
 To use the web component in your HTML file, add the following script tag:
 
 ```html
-<script src="https://unpkg.com/web-component-gauge-chart@0.0.2/dist/chart-gauge-stencil/chart-gauge-stencil.esm.js"></script>
+<script src="https://unpkg.com/web-component-gauge-chart@latest/dist/chart-gauge-stencil/chart-gauge-stencil.esm.js"></script>
 ```
 
 Then, you can use the web component in your HTML file:
@@ -63,8 +63,6 @@ You can customize the appearance of the gauge chart by passing the following pro
   - `from`: The starting value of the range.
   - `to`: The ending value of the range.
   - `color`: The color to be used for this range (in hexadecimal format).
-
-Example:
 
 
 ## License

@@ -17,6 +17,7 @@ export class GaugeChart {
   @Prop() max: number;
   @Prop() distance: number;
   @Prop() width: number;
+  @Prop() tooltip: string;
 
   private svg: any;
   private chart: any;
@@ -41,7 +42,7 @@ export class GaugeChart {
       left: 20
     };
 
-    const chartGauge = this.el.shadowRoot.querySelector('.chart-gauge');
+    const chartGauge = this.el.shadowRoot.querySelector('.gauge-chart');
     const width = this.width - margin.left - margin.right;
     const height = width;
     const radius = Math.min(width, height) / 2;
@@ -121,6 +122,44 @@ export class GaugeChart {
       .attr('text-anchor', 'start')
       .attr('alignment-baseline', 'middle')
       .text(this.max);
+
+    // Add tooltip
+    if (this.tooltip) {
+      const tooltipElement = this.chart.append('g')
+        .attr('class', 'gauge-tooltip')
+        .attr('transform', `translate(0, ${radius / 4})`)
+        .style('opacity', 0);
+
+      const tooltipText = tooltipElement.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('alignment-baseline', 'middle')
+        .text(this.tooltip);
+
+      const bbox = tooltipText.node().getBBox();
+      const padding = 10;
+
+      tooltipElement.insert('rect', 'text')
+        .attr('x', bbox.x - padding / 2)
+        .attr('y', bbox.y - padding / 2)
+        .attr('width', bbox.width + padding)
+        .attr('height', bbox.height + padding)
+        .attr('rx', 5)
+        .attr('ry', 5)
+        .style('fill', 'white')
+        .style('stroke', '#333')
+        .style('stroke-width', 1);
+
+      this.chart.on('mouseover', () => {
+        tooltipElement.transition()
+          .duration(100)
+          .style('opacity', 1);
+      })
+      .on('mouseout', () => {
+        tooltipElement.transition()
+          .duration(500)
+          .style('opacity', 0);
+      });
+    }
   }
 
   drawNeedle(percent) {
@@ -190,6 +229,6 @@ export class GaugeChart {
   }
 
   render() {
-    return <div class="chart-gauge" style={{ width: `${this.width}px` }}></div>;
+    return <div class="gauge-chart" style={{ width: `${this.width}px` }}></div>;
   }
 }

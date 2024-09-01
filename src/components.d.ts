@@ -12,6 +12,7 @@ export namespace Components {
         "max": number;
         "min": number;
         "settings": Array<{ from: number; to: number; color: string }>;
+        "tooltip": string;
         "value": number;
         "width": number;
     }
@@ -34,6 +35,7 @@ declare namespace LocalJSX {
         "max"?: number;
         "min"?: number;
         "settings"?: Array<{ from: number; to: number; color: string }>;
+        "tooltip"?: string;
         "value"?: number;
         "width"?: number;
     }

@@ -3,13 +3,29 @@
   fill: #464A4F;
 }
 
+.gauge-chart {
+  position: relative;
+}
+
 .gauge-label {
   font-size: 12px;
   fill: #333;
+  font-family: sans-serif;
 }
 
 .gauge-value {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   fill: #333;
+  font-family: sans-serif;
+}
+
+.gauge-tooltip {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  font-family: sans-serif;
 }

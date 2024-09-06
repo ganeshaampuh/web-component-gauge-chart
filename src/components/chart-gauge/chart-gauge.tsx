@@ -13,14 +13,20 @@ export class GaugeChart {
   @Prop() settings: Array<{ from: number; to: number; color: string }> = [];
   @Prop() value: number;
   @Prop() label: string;
-  @Prop() min: number;
-  @Prop() max: number;
   @Prop() distance: number;
   @Prop() width: number;
   @Prop() tooltip: string;
 
   private svg: any;
   private chart: any;
+
+  get min(): number {
+    return this.settings.length > 0 ? this.settings[0].from : 0;
+  }
+
+  get max(): number {
+    return this.settings.length > 0 ? this.settings[this.settings.length - 1].to : 100;
+  }
 
   componentDidLoad() {
     this.drawChart();

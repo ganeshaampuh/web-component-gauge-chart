@@ -10,7 +10,7 @@ import * as d3 from 'd3';
 export class GaugeChart {
   @Element() el: HTMLElement;
 
-  @Prop() settings: Array<{ from: number; to: number; color: string }> = [];
+  @Prop() settings: Array<{ name: string; from: number; to: number; color: string }> = [];
   @Prop() value: number;
   @Prop() label: string;
   @Prop() distance: number;
@@ -73,21 +73,69 @@ export class GaugeChart {
         .startAngle(arcStartRad + startPadRad)
         .endAngle(arcEndRad - endPadRad);
 
-      const sectionValue = sectionIndx * this.distance;
-      const setting = this.settings.find(s => sectionValue >= s.from && sectionValue <= s.to);
-      const color = setting ? setting.color : '#ccc';
+      const sectionStart = (sectionIndx - 1) * this.distance;
+      const sectionEnd = sectionIndx * this.distance;
+
+      // Find all settings that overlap with this section
+      const relevantSettings = this.settings.filter(s => 
+        (s.from < sectionEnd && s.to > sectionStart)
+      );
+
+      // Calculate fill percentages for each color in this section
+      let fillPercentages = [];
+      let colors = [];
+
+      relevantSettings.forEach(setting => {
+        const start = Math.max(setting.from, sectionStart);
+        const end = Math.min(setting.to, sectionEnd);
+        const percentage = (end - start) / this.distance;
+        fillPercentages.push(percentage);
+        colors.push(setting.color);
+      });
+
+      // If the section is not fully covered, add gray for the remaining part
+      const totalPercentage = fillPercentages.reduce((a, b) => a + b, 0);
+      if (totalPercentage < 1) {
+        fillPercentages.push(1 - totalPercentage);
+        colors.push('#ccc');
+      }
+
+      // Create a gradient for multi-color fill
+      const gradientId = `gradient-${sectionIndx}`;
+      const gradient = this.chart.append('linearGradient')
+        .attr('id', gradientId)
+        .attr('gradientUnits', 'objectBoundingBox')
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '100%')
+        .attr('y2', '0%');
+
+      let currentOffset = 0;
+      fillPercentages.forEach((percentage, index) => {
+        if (percentage > 0) {
+          gradient.append('stop')
+            .attr('offset', `${currentOffset * 100}%`)
+            .attr('stop-color', colors[index]);
+          
+          currentOffset += percentage;
+          
+          gradient.append('stop')
+            .attr('offset', `${currentOffset * 100}%`)
+            .attr('stop-color', colors[index]);
+        }
+      });
 
       this.chart.append('path')
         .attr('class', `arc chart-color${sectionIndx}`)
         .attr('d', arc)
-        .attr('fill', color);
+        .attr('fill', `url(#${gradientId})`);
 
       const labelAngle = (arcStartRad + arcEndRad) / 2;
       const labelRadius = radius - chartInset + 20;
       const labelX = labelRadius * Math.cos(labelAngle - Math.PI / 2);
       const labelY = labelRadius * Math.sin(labelAngle - Math.PI / 2);
 
-      if (sectionValue !== this.min && sectionValue !== this.max) {
+      if (sectionEnd !== this.min && sectionEnd !== this.max) {
         const rotationAngle = -10;
         const radians = this.degToRad(rotationAngle);
         const adjustedLabelX = labelX * Math.cos(radians) + labelY * Math.sin(radians);
@@ -99,7 +147,7 @@ export class GaugeChart {
           .attr('y', adjustedLabelY)
           .attr('text-anchor', 'middle')
           .attr('alignment-baseline', 'middle')
-          .text(sectionValue);
+          .text(sectionEnd);
       }
     }
 

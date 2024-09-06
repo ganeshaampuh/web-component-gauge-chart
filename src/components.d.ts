@@ -9,7 +9,7 @@ export namespace Components {
     interface ChartGauge {
         "distance": number;
         "label": string;
-        "settings": Array<{ from: number; to: number; color: string }>;
+        "settings": Array<{ name: string; from: number; to: number; color: string }>;
         "tooltip": string;
         "value": number;
         "width": number;
@@ -30,7 +30,7 @@ declare namespace LocalJSX {
     interface ChartGauge {
         "distance"?: number;
         "label"?: string;
-        "settings"?: Array<{ from: number; to: number; color: string }>;
+        "settings"?: Array<{ name: string; from: number; to: number; color: string }>;
         "tooltip"?: string;
         "value"?: number;
         "width"?: number;

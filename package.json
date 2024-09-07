@@ -1,6 +1,6 @@
 {
   "name": "web-component-gauge-chart",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Ganesha Ampuh <ganeshaampuh@gmail.com>",
   "description": "",
   "main": "dist/index.cjs.js",
@@ -9,6 +9,11 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/chart-gauge-stencil/chart-gauge-stencil.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ganeshaampuh/web-component-gauge-chart.git"
+  },
+  "homepage": "https://web-component-gauge-chart-demo.vercel.app",
   "exports": {
     ".": {
       "import": "./dist/chart-gauge-stencil/chart-gauge-stencil.esm.js",

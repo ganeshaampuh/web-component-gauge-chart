@@ -3,35 +3,67 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>D3 Collection Chart</title>
-
+    <title>Web Component Gauge Chart</title>
     <script type="module" src="/build/chart-gauge-stencil.esm.js"></script>
     <script nomodule src="/build/chart-gauge-stencil.js"></script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      
+      textarea {
+        width: 300px;
+        height: 200px;
+        margin-top: 10px;
+      }
+    </style>
   </head>
+  
   <body>
-    <chart-gauge width="300" value="45.59" label="Timer" tooltip="Gennemsnitlig arbejdstid: 45.59 Timer" distance="10"></chart-gauge>
+    <chart-gauge width="300" value="50" label="Timer" tooltip="Gennemsnitlig arbejdstid: 50 Timer" distance="10"></chart-gauge>
+    <textarea id="settingsInput"></textarea>
   </body>
   
   <script>
-    document.querySelector('chart-gauge').settings = [
-        {
-          "name": "green",
-          "from": 0,
-          "to": 42,
-          "color": "#54bc3a"
-        },
-        {
-          "name": "yellow",
-          "from": 42,
-          "to": 48,
-          "color": "#dcdf0f"
-        },
-        {
-          "name": "red",
-          "from": 48,
-          "to": 100,
-          "color": "#de5354"
-        }
-      ];
- </script>
+    const chartGauge = document.querySelector('chart-gauge');
+    const settingsInput = document.getElementById('settingsInput');
+    
+    const defaultSettings = [
+      {
+        "name": "green",
+        "from": 0,
+        "to": 40,
+        "color": "#54bc3a"
+      },
+      {
+        "name": "yellow",
+        "from": 40,
+        "to": 50,
+        "color": "#dcdf0f"
+      },
+      {
+        "name": "red",
+        "from": 50,
+        "to": 100,
+        "color": "#de5354"
+      }
+    ];
+
+    chartGauge.settings = defaultSettings;
+    settingsInput.value = JSON.stringify(defaultSettings, null, 2);
+
+    settingsInput.addEventListener('input', () => {
+      try {
+        const newSettings = JSON.parse(settingsInput.value);
+        chartGauge.settings = newSettings;
+      } catch (error) {
+        console.error('Invalid JSON:', error);
+      }
+    });
+  </script>
 </html>

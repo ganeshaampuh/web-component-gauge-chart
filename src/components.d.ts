@@ -15,6 +15,7 @@ export namespace Components {
         "settings": Array<{ name: string; from: number; to: number; color: string }>;
         "tickColor": string;
         "tickInterval": number;
+        "tooltip": string;
         "units": string;
         "value": number;
         "width": number;
@@ -41,6 +42,7 @@ declare namespace LocalJSX {
         "settings"?: Array<{ name: string; from: number; to: number; color: string }>;
         "tickColor"?: string;
         "tickInterval"?: number;
+        "tooltip"?: string;
         "units"?: string;
         "value"?: number;
         "width"?: number;

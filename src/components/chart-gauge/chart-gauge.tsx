@@ -21,6 +21,7 @@ export class GaugeChart {
   @Prop() tickColor: string = '#C0C0C0';
   @Prop() needleColor: string = '#464A4F';
   @Prop() pivotColor: string = '#464A4F';
+  @Prop() tooltip: string = ''; // New tooltip prop
 
   get minValue(): number {
     return this.settings.length > 0 ? this.settings[0].from : 0;
@@ -34,6 +35,7 @@ export class GaugeChart {
   @State() private chart: any;
   @State() private needle: any;
   @State() private valueText: any;
+  @State() private tooltipElement: any; // New state for tooltip element
 
   @Watch('value')
   valueChanged(newValue: number) {
@@ -67,6 +69,7 @@ export class GaugeChart {
     this.drawTicks(radius);
     this.drawNeedle(radius);
     this.drawLabels(radius);
+    this.drawTooltip(); // New method to draw tooltip
   }
 
   drawArc(radius: number) {
@@ -200,6 +203,64 @@ export class GaugeChart {
     return d3.scaleLinear()
       .domain([this.minValue, this.maxValue])
       .range([-Math.PI / 2, Math.PI / 2])(value);
+  }
+
+  drawTooltip() {
+    if (this.tooltip) {
+      const tooltipGroup = this.chart.append('g')
+        .attr('class', 'tooltip-group')
+        .attr('transform', `translate(0, ${this.height / 4})`);
+
+      const tooltipText = tooltipGroup.append('text')
+        .attr('class', 'tooltip-text')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('font-size', '12px')
+        .attr('fill', '#000000')
+        .text(this.tooltip)
+        .style('opacity', 0);
+
+      const textBBox = tooltipText.node().getBBox();
+      const padding = 10;
+
+      const tooltipRect = tooltipGroup.append('rect')
+        .attr('class', 'tooltip-background')
+        .attr('x', textBBox.x - padding)
+        .attr('y', textBBox.y - padding)
+        .attr('width', textBBox.width + 2 * padding)
+        .attr('height', textBBox.height + 2 * padding)
+        .attr('fill', 'white')
+        .attr('stroke', 'black')
+        .attr('stroke-width', 1)
+        .attr('rx', 5)
+        .attr('ry', 5)
+        .style('opacity', 0);
+
+      tooltipText.raise();
+
+      this.tooltipElement = tooltipGroup.append('text')
+        .attr('class', 'tooltip-text')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('font-size', '12px')
+        .attr('fill', '#000000')
+        .text(this.tooltip)
+        .style('opacity', 0);
+
+      this.chart.on('mouseover', () => {
+        tooltipRect.transition().duration(200).style('opacity', 1);
+        this.tooltipElement.transition().duration(200).style('opacity', 1);
+      });
+
+      this.chart.on('mouseout', () => {
+        tooltipRect.transition().duration(200).style('opacity', 0);
+        this.tooltipElement.transition().duration(200).style('opacity', 0);
+      });
+    }
   }
 
   render() {

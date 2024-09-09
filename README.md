@@ -18,8 +18,6 @@ Then, you can use the web component in your HTML file:
         width="300"
         value="35"
         label="Hours"
-        min="0"
-        max="80"
         distance="10">
     </chart-gauge>  
 
@@ -28,18 +26,18 @@ Then, you can use the web component in your HTML file:
             {
                 "name": "green",
                 "from": 0,
-                "to": 40,
+                "to": 42,
                 "color": "#54bc3a"
             },
             {
                 "name": "yellow",
-                "from": 40,
-                "to": 50,
+                "from": 42,
+                "to": 58,
                 "color": "#dcdf0f"
             },
             {
                 "name": "red",
-                "from": 50,
+                "from": 58,
                 "to": 80,
                 "color": "#de5354"
             }

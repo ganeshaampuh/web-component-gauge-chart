@@ -50,7 +50,7 @@ export class GaugeChart {
   }
 
   drawChart() {
-    const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+    const margin = { top: 20, right: 25, bottom: 20, left: 25 };
     const width = this.width - margin.left - margin.right;
     const height = this.height - margin.top - margin.bottom;
     const radius = Math.min(width, height) / 2;
@@ -124,6 +124,17 @@ export class GaugeChart {
       .attr('class', 'tick')
       .attr('d', tickArc)
       .attr('fill', this.tickColor);
+
+    this.chart.selectAll('.tick-line')
+      .data(ticks)
+      .enter().append('line')
+      .attr('class', 'tick-line')
+      .attr('x1', d => (radius * 0.7) * Math.cos(scale(d) - Math.PI / 2))
+      .attr('y1', d => (radius * 0.7) * Math.sin(scale(d) - Math.PI / 2))
+      .attr('x2', d => radius * Math.cos(scale(d) - Math.PI / 2))
+      .attr('y2', d => radius * Math.sin(scale(d) - Math.PI / 2))
+      .attr('stroke', 'white')
+      .attr('stroke-width', 1.5);
 
     this.chart.selectAll('.tick-text')
       .data(ticks)

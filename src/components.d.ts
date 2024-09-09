@@ -7,10 +7,15 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface ChartGauge {
-        "distance": number;
+        "height": number;
         "label": string;
+        "lineColor": string;
+        "needleColor": string;
+        "pivotColor": string;
         "settings": Array<{ name: string; from: number; to: number; color: string }>;
-        "tooltip": string;
+        "tickColor": string;
+        "tickInterval": number;
+        "units": string;
         "value": number;
         "width": number;
     }
@@ -28,10 +33,15 @@ declare global {
 }
 declare namespace LocalJSX {
     interface ChartGauge {
-        "distance"?: number;
+        "height"?: number;
         "label"?: string;
+        "lineColor"?: string;
+        "needleColor"?: string;
+        "pivotColor"?: string;
         "settings"?: Array<{ name: string; from: number; to: number; color: string }>;
-        "tooltip"?: string;
+        "tickColor"?: string;
+        "tickInterval"?: number;
+        "units"?: string;
         "value"?: number;
         "width"?: number;
     }

@@ -21,7 +21,7 @@ export class GaugeChart {
   @Prop() tickColor: string = '#C0C0C0';
   @Prop() needleColor: string = '#464A4F';
   @Prop() pivotColor: string = '#464A4F';
-  @Prop() tooltip: string = ''; // New tooltip prop
+  @Prop() tooltip: string = '';
 
   get minValue(): number {
     return this.settings.length > 0 ? this.settings[0].from : 0;
@@ -35,7 +35,7 @@ export class GaugeChart {
   @State() private chart: any;
   @State() private needle: any;
   @State() private valueText: any;
-  @State() private tooltipElement: any; // New state for tooltip element
+  @State() private tooltipElement: any;
 
   @Watch('value')
   valueChanged(newValue: number) {
@@ -69,7 +69,7 @@ export class GaugeChart {
     this.drawTicks(radius);
     this.drawNeedle(radius);
     this.drawLabels(radius);
-    this.drawTooltip(); // New method to draw tooltip
+    this.drawTooltip();
   }
 
   drawArc(radius: number) {

@@ -5,6 +5,7 @@
 
 .gauge-chart {
   position: relative;
+  margin: auto;
 }
 
 .gauge-label {

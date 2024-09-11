@@ -60,7 +60,7 @@ export class GaugeChart {
     this.svg = d3.select(this.el.shadowRoot.querySelector('.gauge-chart'))
       .append('svg')
       .attr('width', this.width)
-      .attr('height', this.height);
+      .attr('height', this.height / 2 + 60);
 
     this.chart = this.svg.append('g')
       .attr('transform', `translate(${this.width / 2}, ${this.height / 2})`);
@@ -209,7 +209,7 @@ export class GaugeChart {
     if (this.tooltip) {
       const tooltipGroup = this.chart.append('g')
         .attr('class', 'tooltip-group')
-        .attr('transform', `translate(0, ${this.height / 4})`);
+        .attr('transform', `translate(0, ${this.height / 15})`);
 
       const tooltipText = tooltipGroup.append('text')
         .attr('class', 'tooltip-text')
@@ -251,12 +251,12 @@ export class GaugeChart {
         .text(this.tooltip)
         .style('opacity', 0);
 
-      this.chart.on('mouseover', () => {
+      this.el.shadowRoot.querySelector('.gauge-chart').addEventListener('mouseover', () => {
         tooltipRect.transition().duration(200).style('opacity', 1);
         this.tooltipElement.transition().duration(200).style('opacity', 1);
       });
 
-      this.chart.on('mouseout', () => {
+      this.el.shadowRoot.querySelector('.gauge-chart').addEventListener('mouseout', () => {
         tooltipRect.transition().duration(200).style('opacity', 0);
         this.tooltipElement.transition().duration(200).style('opacity', 0);
       });
@@ -264,6 +264,6 @@ export class GaugeChart {
   }
 
   render() {
-    return <div class="gauge-chart" style={{ width: `${this.width}px`, height: `${this.height}px` }}></div>;
+    return <div class="gauge-chart" style={{ width: `${this.width}px`, height: `${this.height / 2 + 60}px` }}></div>;
   }
 }

@@ -53,8 +53,6 @@ You can customize the appearance of the gauge chart by passing the following pro
 - `width`: The width of the gauge chart.
 - `value`: The value of the gauge chart.
 - `label`: The label of the gauge chart.
-- `min`: The minimum value of the gauge chart.
-- `max`: The maximum value of the gauge chart.
 - `distance`: The distance between the gauge chart and the label.
 - `settings`: An array of objects defining the color ranges for the gauge chart. Each object should have the following properties:
   - `name`: A descriptive name for the range (optional).
